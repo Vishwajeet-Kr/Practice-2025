@@ -1,0 +1,47 @@
+//{ Driver Code Starts
+// Initial Template for C++
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+  public:
+    int longestUniqueSubstr(string &s) {
+       int start = 0;
+       int max_length = 0;
+       unordered_map<char, int>charMap;
+        
+        for (int i=0; i< s.length(); i++) {
+            if (charMap.find(s[i]) != charMap.end() && charMap[s[i]] >= start) {
+            start = charMap[s[i]] + 1;
+        }
+         charMap[s[i]] = i;
+         
+         max_length = max(max_length, i - start + 1);
+    }
+    return max_length;
+    }
+};
+
+
+//{ Driver Code Starts.
+
+int main() {
+
+    int t;
+    cin >> t;
+    while (t--) {
+
+        Solution obj;
+        string s;
+        cin >> s;
+        cout << obj.longestUniqueSubstr(s) << endl;
+        cout << "~"
+             << "\n";
+    }
+
+    return 0;
+}
+
+// } Driver Code Ends

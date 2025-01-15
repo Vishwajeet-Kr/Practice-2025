@@ -1,0 +1,22 @@
+//Array Duplicates
+class Solution {
+  public:
+    vector<int> findDuplicates(vector<int>& arr) {
+        int n=arr.size();
+        unordered_map<int, int> freqMap;
+        vector<int> result;
+        
+        for (int i = 0; i < n; i++) {
+            freqMap[arr[i]]++;
+        }
+        
+        for (auto& entry : freqMap) {
+            if (entry.second > 1) {
+            result.push_back(entry.first);
+        }
+    }
+    
+     return result;
+    
+    }
+};

@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void merge(vector<int>& arr1, int m, vector<int>& arr2, int n) {
+        int left = m - 1; // Last index of arr1's valid elements
+        int right = 0;    // First index of arr2
+
+        // Swap larger elements from arr1 with smaller ones from arr2
+        while (left >= 0 && right < n) {
+            if (arr1[left] > arr2[right]) {
+                swap(arr1[left], arr2[right]);
+                left--, right++;
+            } else {
+                break;
+            }
+        }
+
+        // Sort both arrays again
+        sort(arr1.begin(), arr1.begin() + m); // Sort only the valid part of arr1
+        sort(arr2.begin(), arr2.end());       // Sort entire arr2
+
+        // Copy arr2 elements into arr1 at the extra space
+        for (int i = 0; i < n; i++) {
+            arr1[m + i] = arr2[i];
+        }
+    }
+};

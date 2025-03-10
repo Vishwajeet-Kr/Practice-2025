@@ -1,0 +1,22 @@
+pair<int, int> getFloorAndCeil(vector<int> &arr, int n, int x) {
+	int low = 0, high = n - 1;
+    int floorValue = -1, ceilValue = -1;
+
+    // Binary Search to find Floor and Ceil
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] == x) {
+            return {x, x};  // If exact match found, both floor & ceil are x
+        } 
+        else if (arr[mid] < x) {
+            floorValue = arr[mid]; // Potential floor
+            low = mid + 1;         // Search right for a larger floor
+        } 
+        else {
+            ceilValue = arr[mid];  // Potential ceil
+            high = mid - 1;        // Search left for a smaller ceil
+        }
+    }
+    return {floorValue, ceilValue};
+}

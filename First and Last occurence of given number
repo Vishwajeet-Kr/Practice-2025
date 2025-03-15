@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int lowerBound(vector<int>& nums, int target) {
+        int low = 0, high = nums.size() - 1;
+        int ans = nums.size();  // Default to size (out of bounds)
+        while (low <= high) {
+            int mid = low + (high - low) / 2; // Prevent overflow
+            if (nums[mid] >= target) {
+                ans = mid;
+                high = mid - 1; // Move left
+            } else {
+                low = mid + 1; // Move right
+            }
+        }
+        return ans;
+    }
+    int upperBound(vector<int>& nums, int target) {
+        int low = 0, high = nums.size() - 1;
+        int ans = nums.size();  // Default to size (out of bounds)
+        while (low <= high) {
+            int mid = low + (high - low) / 2; // Prevent overflow
+            if (nums[mid] > target) {
+                ans = mid;
+                high = mid - 1; // Move left
+            } else {
+                low = mid + 1; // Move right
+            }
+        }
+        return ans;
+    }
+
+vector<int> searchRange(vector<int>& nums, int target) {
+        int lb = lowerBound(nums, target);
+        if (lb == nums.size() || nums[lb] != target) {
+            return {-1, -1}; // Target not found
+        }
+        return {lb, upperBound(nums, target) - 1};  
+    }
+};

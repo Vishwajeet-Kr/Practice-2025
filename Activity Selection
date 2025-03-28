@@ -1,0 +1,30 @@
+class Solution {
+  public:
+    int activitySelection(vector<int> &start, vector<int> &finish) {
+        // code here
+        int n = start.size();
+        
+        // Step 1: Store activities as pairs of (finish_time, start_time)
+        vector<pair<int, int>> activities;
+        for (int i = 0; i < n; i++) {
+            activities.push_back({finish[i], start[i]});
+        }
+        
+        // Step 2: Sort activities based on finish time
+        sort(activities.begin(), activities.end());
+        
+        // Step 3: Select the first activity
+        int count = 1;
+        int lastEndTime = activities[0].first;
+
+        // Step 4: Iterate and select non-overlapping activities
+        for (int i = 1; i < n; i++) {
+            if (activities[i].second > lastEndTime) {
+                count++;
+                lastEndTime = activities[i].first;
+            }
+        }
+
+        return count;
+    }
+};

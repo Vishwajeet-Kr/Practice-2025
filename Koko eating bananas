@@ -1,0 +1,31 @@
+class Solution {
+public:
+
+int findMax(vector<int> &v) {
+        return *max_element(v.begin(), v.end()); // Optimized
+    }
+
+    // Function to calculate total hours required at a given eating speed
+    int calculateTotalHours(vector<int> &v, int hourly) {
+        int totalH = 0;
+        for (int bananas : v) {
+            totalH += (bananas + hourly - 1) / hourly; // Optimized integer division
+        }
+        return totalH;
+    }
+
+    // Function to find the minimum eating speed
+    int minEatingSpeed(vector<int>& v, int h) {
+        int low = 1, high = findMax(v);
+
+        while (low < high) {  // Use "<" instead of "<=" to optimize the loop
+            int mid = low + (high - low) / 2;  // Prevent overflow
+            if (calculateTotalHours(v, mid) <= h) {
+                high = mid;  // Reduce the speed
+            } else {
+                low = mid + 1;  // Increase the speed
+            }
+        }
+        return low;
+    }
+};

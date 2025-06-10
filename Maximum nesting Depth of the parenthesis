@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int maxDepth(string s) {
+        int maxi = 0, curr = 0;
+
+        for (int i = 0; i < s.length(); i++) 
+        {
+            char c = s[i];
+
+                if(c == '('){
+                    curr++;
+                    maxi = max(maxi, curr);
+                }
+                if(c== ')'){
+                    curr--;
+                }
+        }
+        return maxi;
+    }
+};

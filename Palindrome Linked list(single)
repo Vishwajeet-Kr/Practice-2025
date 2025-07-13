@@ -1,0 +1,42 @@
+class Solution {
+    // Reverse function
+    private:
+    ListNode* reverseLL(ListNode* head) {
+        if(head == NULL || head->next == NULL) return head;
+        ListNode* newHead = reverseLL(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return newHead;
+    }
+public:
+    bool isPalindrome(ListNode* head) {
+        if(head == NULL || head -> next == NULL) return true;
+
+        // Find the middle
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next != NULL && fast->next->next != NULL)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        // Reverse second half
+        ListNode* newHead = reverseLL(slow->next);
+
+        // Compare both halves
+        ListNode* first = head;
+        ListNode* second = newHead;
+        while(second != NULL) 
+        {
+            if(first-> val != second->val) 
+            {
+                reverseLL(newHead); // Restoring second half
+                return false;
+            }
+            first = first -> next;
+            second = second -> next;
+        }
+        reverseLL(newHead);  // Restoring second half
+        return true;
+    }

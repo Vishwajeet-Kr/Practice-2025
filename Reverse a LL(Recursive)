@@ -1,0 +1,15 @@
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == NULL || head->next == NULL)   //empty list or only one node
+            return head;
+        
+        ListNode* newHead = reverseList(head->next);  // Recursively reverse the rest of the list
+
+        // Reverse the current node's link
+        head->next->next = head;
+        head->next = NULL;
+
+        return newHead;
+    }
+};

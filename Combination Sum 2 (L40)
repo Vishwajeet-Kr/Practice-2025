@@ -1,0 +1,29 @@
+class Solution {
+public:
+
+    void getCombinations(vector<int>& candidates, int start, int target, vector<int>& combination, vector<vector<int>>& result) {
+        if (target == 0) {
+            result.push_back(combination);
+            return;
+        }
+
+        for (int i = start; i < candidates.size(); i++) {
+            // Skip duplicates at the same recursion level
+            if (i > start && candidates[i] == candidates[i - 1]) continue;
+
+            if (candidates[i] > target) break; // Optimization: no need to proceed further
+
+            combination.push_back(candidates[i]);
+            // Move to the next index (no reuse)
+            getCombinations(candidates, i + 1, target - candidates[i], combination, result);
+            combination.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<vector<int>> result;
+        vector<int> combination;
+        sort(candidates.begin(), candidates.end()); // Sort to handle duplicates
+        getCombinations(candidates, 0, target, combination, result);
+        return result;
+    }
+};
